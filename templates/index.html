@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estado de la Planta</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Mediciones de la Planta 🌱</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Luz</th>
+                <th>Temperatura (°C)</th>
+                <th>Humedad Suelo</th>
+                <th>Estado</th>
+                <th>Actualizar Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrada in datos %}
+            <tr>
+                <td>{{ entrada.hora }}</td>
+                <td>{{ entrada.luz }}</td>
+                <td>{{ entrada.temperatura }}</td>
+                <td>{{ entrada.humedad }}</td>
+                <td>{{ entrada.estado }}</td>
+                <td>
+                    <form method="POST" action="/">
+                        <input type="hidden" name="id" value="{{ loop.index0 }}">
+                        <select name="estado" required>
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option value="Bien">Bien</option>
+                            <option value="Seca">Seca</option>
+                            <option value="Mucha agua">Mucha agua</option>
+                            <option value="Problemas de luz">Problemas de luz</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <button type="submit">Guardar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
